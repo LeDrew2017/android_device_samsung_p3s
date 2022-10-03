@@ -1601,10 +1601,6 @@
     <integer-array name="config_udfps_sensor_props">
         <item>720</item>
         <item>2400</item>
-        <item>160</item>
+        <item>150</item>
     </integer-array>
-
-     <!-- Boolean indicating whether the HWC setColorTransform function can be performed efficiently
-         in hardware. -->
-    <bool name="config_setColorTransformAccelerated">true</bool>
 </resources>
