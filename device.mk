@@ -28,6 +28,8 @@ BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
 # Add gapps
 $(call inherit-product, vendor/gapps/arm64/arm64-vendor.mk)
 
+DEVICE_PATH := device/samsung/p3s
+
 # AptX
 PRODUCT_COPY_FILES += \
     $(DEVICE_PATH)/libaptX/libaptX_encoder.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libaptX_encoder.so \
