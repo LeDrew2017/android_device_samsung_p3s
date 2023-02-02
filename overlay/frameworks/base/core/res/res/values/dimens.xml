@@ -20,7 +20,7 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <dimen name="rounded_corner_radius">102.0px</dimen>
-    <dimen name="status_bar_height_portrait">110.0px</dimen>
-    <dimen name="status_bar_height_landscape">28dp</dimen>
+    <dimen name="status_bar_height_portrait">112.0px</dimen>
+    <dimen name="status_bar_height_landscape">18dp</dimen>
 
 </resources>

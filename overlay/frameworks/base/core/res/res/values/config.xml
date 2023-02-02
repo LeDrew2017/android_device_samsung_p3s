@@ -1378,16 +1378,6 @@
     -->
     <integer name="config_minimumScreenOffTimeout">3000</integer>
 
-    <!-- Vibrator pattern to be used as the default for notifications
-         that specify DEFAULT_VIBRATE.
-     -->
-    <integer-array name="config_defaultNotificationVibePattern">
-        <item>0</item>
-        <item>250</item>
-        <item>250</item>
-        <item>250</item>
-    </integer-array>
-
     <!-- Enables or disables haptic effect when the text insertion/selection handle is moved
          manually by the user. Off by default, since the expected haptic feedback may not be
          available on some devices. -->
