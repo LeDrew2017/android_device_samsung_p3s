@@ -52,11 +52,5 @@ PRODUCT_COPY_FILES += \
     vendor/samsung/p3s/proprietary/vendor/firmware/p3_vl53l5.bin:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/vendor/firmware/p3_vl53l5.bin \
     vendor/samsung/p3s/proprietary/vendor/firmware/p3_vl53l5.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/p3_vl53l5.bin
 
-# Bluetooth
-PRODUCT_PACKAGES += \
-    android.hardware.bluetooth@1.0-impl \
-    android.hardware.bluetooth@1.1-service \
-    libbt-vendor
-
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
