@@ -1,4 +1,4 @@
-# Proprietary files - from Samsung package version G998BXXU5DVK1, unless pinned
+# Proprietary files - from Samsung package version G998BXXU5DWA7, unless pinned
 
 # Audio
 vendor/etc/SoundBoosterParam.txt
