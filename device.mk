@@ -25,9 +25,6 @@ $(call inherit-product, frameworks/native/build/phone-xhdpi-6144-dalvik-heap.mk)
 
 BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
 
-# Add gapps
-$(call inherit-product, vendor/gapps/arm64/arm64-vendor.mk)
-
 DEVICE_PATH := device/samsung/p3s
 
 # AptX
