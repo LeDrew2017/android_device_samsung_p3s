@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2022 The LineageOS Project
+# Copyright (C) 2022 The PixelExperience Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,22 +21,21 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 ## Inherit from p3s device
 $(call inherit-product, device/samsung/p3s/device.mk)
 
-## Boot Animation
-TARGET_BOOTANIMATION_HALF_RES := true
-TARGET_SCREEN_HEIGHT := 3200
-TARGET_SCREEN_WIDTH := 1440
+# Inherit some common Pixel Experience stuff.
+$(call inherit-product, vendor/aosp/config/common_full_phone.mk)
 
-## Inherit some common Lineage stuff
-$(call inherit-product, vendor/lineage/config/common_full_phone.mk)
-
-## Enable updating of APEXes
-$(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
+# Pixel Experience Flags
+TARGET_BOOT_ANIMATION_RES := 1080
+TARGET_SUPPORTS_QUICK_TAP := false # This is correct, device doesn't support Quick Tap
 
 ## Device identifier, this must come after all inclusions
-PRODUCT_NAME := lineage_p3s
+PRODUCT_NAME := aosp_p3s
 PRODUCT_DEVICE := p3s
 PRODUCT_BRAND := samsung
 PRODUCT_MODEL := SM-G998B
 PRODUCT_MANUFACTURER := samsung
+
+PRODUCT_SYSTEM_NAME := Galaxy S21 Ultra 5G
+PRODUCT_SYSTEM_DEVICE := Galaxy S21 Ultra 5G
 
 PRODUCT_GMS_CLIENTID_BASE := android-samsung
