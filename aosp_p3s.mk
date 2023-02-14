@@ -26,6 +26,8 @@ $(call inherit-product, vendor/aosp/config/common_full_phone.mk)
 
 # Pixel Experience Flags
 TARGET_BOOT_ANIMATION_RES := 1080
+TARGET_INCLUDE_LIVE_WALLPAPERS := true
+TARGET_FACE_UNLOCK_SUPPORTED := true
 TARGET_SUPPORTS_QUICK_TAP := false # This is correct, device doesn't support Quick Tap
 
 ## Device identifier, this must come after all inclusions
