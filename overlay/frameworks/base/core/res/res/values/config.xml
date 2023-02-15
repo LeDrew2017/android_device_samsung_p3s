@@ -1336,14 +1336,13 @@
          when adapting to brighter or darker environments.  This parameter controls how quickly
          brightness changes occur in response to an observed change in light level that exceeds the
          hysteresis threshold. -->
-    <integer name="config_autoBrightnessBrighteningLightDebounce">4000</integer>
-    <integer name="config_autoBrightnessDarkeningLightDebounce">8000</integer>
+    <integer name="config_autoBrightnessBrighteningLightDebounce">3000</integer>
+    <integer name="config_autoBrightnessDarkeningLightDebounce">6000</integer>
 
     <!-- Screen brightness used to dim the screen when the user activity
          timeout expires.  May be less than the minimum allowed brightness setting
          that can be set by the user. -->
     <integer name="config_screenBrightnessDim">12</integer>
-    <item type="dimen" name="config_screenBrightnessDimFloat">0.047058824</item>
 
     <!-- Default screen brightness setting set.
          -2 is invalid so setting will resort to int value specified above.
@@ -1397,19 +1396,9 @@
          Doze dreams will run whenever the power manager is in a dozing state. -->
     <string name="config_dozeComponent" translatable="false">com.android.systemui/com.android.systemui.doze.DozeService</string>
 
-    <!-- Screen brightness used to dim the screen while dozing in a very low power state.
-         May be less than the minimum allowed brightness setting
-         that can be set by the user. -->
-    <integer name="config_screenBrightnessDoze">21</integer>
-    <item name="config_screenBrightnessDozeFloat" format="float" type="dimen">0.07874</item>
-
-    <!-- Control whether the always on display mode is available. This should only be enabled on
-         devices where the display has be tuned to be power efficient in DOZE and/or DOZE_SUSPEND
-         states. -->
-    <bool name="config_dozeAlwaysOnDisplayAvailable">true</bool>
-
-    <!-- Disable AOD by default -->
-    <bool name="config_dozeAlwaysOnEnabled">false</bool>
+    <!-- If true, the doze component is not started until after the screen has been
+         turned off and the screen off animation has been performed. -->
+    <bool name="config_dozeAfterScreenOffByDefault">true</bool>
 
     <!-- Power Management: Specifies whether to decouple the auto-suspend state of the
          device from the display on/off state.
@@ -1427,6 +1416,22 @@
     -->
     <bool name="config_powerDecoupleAutoSuspendModeFromDisplay">true</bool>
 
+    <!-- Screen brightness used to dim the screen while dozing in a very low power state.
+         May be less than the minimum allowed brightness setting
+         that can be set by the user. -->
+    <integer name="config_screenBrightnessDoze">41</integer>
+
+    <!-- Whether the display blanks itself when transitioning from a doze to a non-doze state -->
+    <bool name="config_displayBlanksAfterDoze">true</bool>
+
+    <!-- Control whether the always on display mode is available. This should only be enabled on
+         devices where the display has be tuned to be power efficient in DOZE and/or DOZE_SUSPEND
+         states. -->
+    <bool name="config_dozeAlwaysOnDisplayAvailable">true</bool>
+
+    <!-- Disable AOD by default -->
+    <bool name="config_dozeAlwaysOnEnabled">false</bool>
+
     <!-- Power Management: Specifies whether to decouple the interactive state of the
          device from the display on/off state.
          When false, setInteractive(..., true) will be called before the display is turned on
@@ -1442,15 +1447,6 @@
     -->
     <bool name="config_powerDecoupleInteractiveModeFromDisplay">true</bool>
 
-    <!-- Set this to true to enable the platform's auto-power-save modes like doze and
-         app standby.  These are not enabled by default because they require a standard
-         cloud-to-device messaging service for apps to interact correctly with the modes
-         (such as to be able to deliver an instant message to the device even when it is
-         dozing).  This should be enabled if you have such services and expect apps to
-         correctly use them when installed on your device.  Otherwise, keep this disabled
-         so that applications can still use their own mechanisms. -->
-    <bool name="config_enableAutoPowerModes">true</bool>
-
     <!-- Indicate whether the SD card is accessible without removing the battery. -->
     <bool name="config_batterySdCardAccessibility">true</bool>
 
@@ -1463,7 +1459,7 @@
     <!-- Indicate whether closing the lid causes the device to go to sleep and opening
          it causes the device to wake up.
          The default is false. -->
-    <bool name="config_lidControlsSleep">true</bool> 
+    <bool name="config_lidControlsSleep">true</bool>
 
     <!-- Indicate whether to allow the device to suspend when the screen is off
          due to the proximity sensor.  This resource should only be set to true
@@ -1490,7 +1486,7 @@
         <item>"/apex/com.android.runtime/javalib/core-oj.jar"</item>
         <item>"/apex/com.android.runtime/javalib/core-libart.jar"</item>
         <item>"/product/priv-app/SystemUI/SystemUI.apk"</item>
-        <item>"/system/bin/surfaceflinger.so"</item>
+        <item>"/system/bin/surfaceflinger"</item>
     </string-array>
 
     <!-- Keep chosen default camera app pinned in memory for faster launching -->
@@ -1499,44 +1495,9 @@
     <!-- Should the pinner service pin the Home application? -->
     <bool name="config_pinnerHomeApp">true</bool>
 
-    <!-- The default journal mode to use use when Write-Ahead Logging is not active.
-         Choices are: OFF, DELETE, TRUNCATE, PERSIST and MEMORY.
-         PERSIST may improve performance by reducing how often journal blocks are
-         reallocated (compared to truncation) resulting in better data block locality
-         and less churn of the storage media.
-         The PERSIST mode results in data persisting in the journal beyond the life of
-         a transaction, so it interacts poorly with SECURE_DELETE. -->
-    <string name="db_default_journal_mode" translatable="false">MEMORY</string>
-
-    <!-- The database synchronization mode when using the default journal mode.
-         FULL is safest and preserves durability at the cost of extra fsyncs.
-         NORMAL also preserves durability in non-WAL modes and uses checksums to ensure
-         integrity although there is a small chance that an error might go unnoticed.
-         Choices are: FULL, NORMAL, OFF. -->
-    <string name="db_default_sync_mode" translatable="false">OFF</string>
-
-    <!-- The database synchronization mode when using Write-Ahead Logging.
-         From https://www.sqlite.org/pragma.html#pragma_synchronous:
-         WAL mode is safe from corruption with synchronous=NORMAL, and probably DELETE mode is safe
-         too on modern filesystems. WAL mode is always consistent with synchronous=NORMAL, but WAL
-         mode does lose durability. A transaction committed in WAL mode with
-         synchronous=NORMAL might roll back following a power loss or system crash.
-         Transactions are durable across application crashes regardless of the synchronous setting
-         or journal mode. The synchronous=NORMAL setting is a good choice for most applications
-         running in WAL mode.
-         Choices are: FULL, NORMAL, OFF. -->
-    <string name="db_wal_sync_mode" translatable="false">OFF</string>
-
-    <!--  Define Google play service package for FRP-->
-    <string name="config_persistentDataPackageName" translatable="false">com.google.android.gms</string>
-
-    <!-- Shutdown if the battery temperature exceeds (this value * 0.1) Celsius. -->
-    <integer name="config_shutdownBatteryTemperature">680</integer>
-
-    <!-- Amount of time it takes for the light sensor to warm up in milliseconds.
-         For this time after the screen turns on, the Power Manager
-         will not debounce light sensor readings -->
-    <integer name="config_lightSensorWarmupTime">0</integer>
+    <!-- Boolean indicating whether the HWC setColorTransform function can be performed efficiently
+         in hardware. -->
+    <bool name="config_setColorTransformAccelerated">true</bool>
 
     <!-- If this is true, device supports Sustained Performance Mode. -->
     <bool name="config_sustainedPerformanceModeSupported">true</bool>
@@ -1554,9 +1515,6 @@
         <item>com.google.android.gms/com.google.android.gms.nearby.messages.service.NearbyMessagesService</item>
         <item>com.google.android.gms/com.google.android.gms.nearby.discovery.service.DiscoveryService</item>
     </string-array>
-
-    <!-- Enable Zram writeback feature to allow unused pages in zram be written to flash. -->
-    <bool name="config_zramWriteback">true</bool>
 
     <!-- The default refresh rate for a given device. Change this value to set a higher default
          refresh rate. If the hardware composer on the device supports display modes with a higher
@@ -1596,6 +1554,9 @@
          @see https://www.w3.org/TR/SVG/paths.html#PathData
          -->
     <string translatable="false" name="config_mainBuiltInDisplayCutout">M 0,0 H -30 V 102 H 30 V 0 H 0 Z</string>
+
+    <!-- Determines whether the shell features all run on another thread. -->
+    <bool name="config_enableShellMainThread">true</bool>
 
     <!-- The properties of a UDFPS sensor in pixels, in the order listed below: -->
     <integer-array name="config_udfps_sensor_props">
