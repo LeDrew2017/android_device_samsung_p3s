@@ -15,9 +15,9 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/aosp_p3s.mk
+    $(LOCAL_DIR)/lineage_p3s.mk
 
 COMMON_LUNCH_CHOICES := \
-    aosp_p3s-eng \
-    aosp_p3s-user \
-    aosp_p3s-userdebug
+    lineage_p3s-eng \
+    lineage_p3s-user \
+    lineage_p3s-userdebug
